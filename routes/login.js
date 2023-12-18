@@ -21,9 +21,12 @@ connection.query(
     } else {
         //user found
         const user = results[0];
-        console.log(user,"user")
-        req.session.user=user
-        req.session.save();
+        try{
+            req.session.user="111";
+            //req.session.save();
+        }
+        catch{(err)=>console.log(err,"error")}
+       
     //   console.log(user.password,"user");
     //   console.log(password,"user");
       bcrypt.compare(password, user.password, (err, result) => {

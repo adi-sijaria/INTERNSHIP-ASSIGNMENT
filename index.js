@@ -7,11 +7,17 @@ const getuser=require("./routes/getuser")
 const connection=require('./connection')
 const session=require("express-session")
 const bodyparser=require("body-parser");
+const cookieparser=require("cookie-parser")
 app.use(bodyparser.json());
+app.use(cookieparser());
 app.get('/', (req, res) => {
   res.send('Hello, this is your API!');
 });
 
+var sess={
+    secret:"aditya",
+    cookie:{}
+}
 
 app.use(session({
     secret:"aditya",
@@ -21,8 +27,10 @@ app.use(session({
         httpOnly:true,
         maxAge:3600000,
         secure:true
-    }
+    },
+   
 }))
+//app.use(session(sess))
 app.use("/register",registerapi);
 app.use("/login",loginapi);
 app.use("/getuser",getuser);
