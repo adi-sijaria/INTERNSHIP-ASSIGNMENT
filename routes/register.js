@@ -3,9 +3,11 @@ const app = express();
 const bcrypt=require('bcrypt');
 const connection=require('../connection')
 const router = express.Router();
-app.post('/register', (req, res) => {
-    const { id,username,email,password} = req.body;
-  
+router.post('/', (req, res) => {
+    console.log(req.body,"this is")
+    const {id,username,email,password} = req.body;
+    console.log(id,"id");
+    console.log(username,"ddd")
     // Encrypt the password
     bcrypt.hash(password, 10, (error, hashedPassword) => {
       if (error) {

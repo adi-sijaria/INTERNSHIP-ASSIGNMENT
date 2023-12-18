@@ -2,6 +2,8 @@ const express=require('express')
 const router=express.Router()
 const jwt=require('jsonwebtoken')
 const bcrypt=require('bcrypt')
+
+
 const secretKey='1234';
 const connection=require("../connection");
 router.post('/', (req, res) => {
@@ -18,9 +20,9 @@ connection.query(
       res.status(401).json({ message: 'User not found' });
     } else {
         //user found
-        const user = results[0];
-        req.session.user=user;
-        req.session.save();
+     req.session.user=user
+     req.session.save();
+      const user = results[0];
     //   console.log(user.password,"user");
     //   console.log(password,"user");
       bcrypt.compare(password, user.password, (err, result) => {
