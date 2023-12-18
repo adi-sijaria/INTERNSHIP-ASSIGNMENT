@@ -17,7 +17,7 @@ router.post('/', (req, res) => {
       }
       // Insert the user into the database
       const sql = `INSERT INTO users (id, username, email, password) VALUES (?, ?, ?, ?)`;
-      connection.query(sql, [id, username,email, password], (error, results) => {
+      connection.query(sql, [id, username,email, hashedPassword], (error, results) => {
         if (error) {
           console.error(error);
           res.status(500).json({ message: 'register failes' });

@@ -14,15 +14,16 @@ connection.query(
   'SELECT * FROM users WHERE email = ?',
   [email],
   (error, results) => {
-    console.log(results,"results")
+    // console.log(results,"results")
     if (error) throw error;
     if (results.length === 0) {
       res.status(401).json({ message: 'User not found' });
     } else {
         //user found
-     req.session.user=user
-     req.session.save();
-      const user = results[0];
+        const user = results[0];
+        console.log(user,"user")
+        req.session.user=user
+        req.session.save();
     //   console.log(user.password,"user");
     //   console.log(password,"user");
       bcrypt.compare(password, user.password, (err, result) => {
@@ -32,8 +33,7 @@ connection.query(
           const token = jwt.sign(
             { id: user.id, username: user.email },
             secretKey,
-            // as given in intern-assignment I have created session for 15hr 
-            //after which the cookie will disappear and user session will get over
+            
             { expiresIn: '15h' }
           );
           console.log(token)
