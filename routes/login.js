@@ -2,8 +2,7 @@ const express=require('express')
 const router=express.Router()
 const jwt=require('jsonwebtoken')
 const bcrypt=require('bcrypt')
-
-
+const Globals=require("../Global")
 const secretKey='1234';
 const connection=require("../connection");
 router.post('/', (req, res) => {
@@ -22,7 +21,9 @@ connection.query(
         //user found
         const user = results[0];
         try{
-            req.session.user="111";
+            req.session.user=user;
+            Globals.users.push(user)
+           
             //req.session.save();
         }
         catch{(err)=>console.log(err,"error")}
